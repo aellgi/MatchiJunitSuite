@@ -95,8 +95,13 @@ public class MatchiSelenium {
 				"#schedule > div > div > div:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td:nth-child(15)"))
 				.click();
 		delay(2000);
-		webDriver.findElement(By.cssSelector("#confirmForm > div.modal-body > div:nth-child(5) > div.col-sm-8.col-xs-8 > div.form-group.no-bottom-margin > div > label"))
-				.click();
+		//webDriver.findElement(By.cssSelector("#confirmForm > div.modal-body > div:nth-child(5) > div.col-sm-8.col-xs-8 > div.form-group.no-bottom-margin > div > label"))
+		//		.click();
+		try {
+		webDriver.findElement(By.xpath("//label[@for='CREDIT_CARD']")).click();
+		} catch (Exception e) {
+			
+		}
 		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
 		delay(500);
 
@@ -105,7 +110,7 @@ public class MatchiSelenium {
 	
 	public void paymentCard() {
 		
-		delay(5000);
+		delay(1500);
 		
 		WebElement e;
 		e = webDriver.findElement(By.xpath("//input[@placeholder='Kortnummer']"));
@@ -114,15 +119,20 @@ public class MatchiSelenium {
 		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(2) > input"));
 		e.click();
 		e.sendKeys("Mjuk Varutestare");
-		//e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(3) > select"));
-		//e.click();
 		webDriver.findElement(By.xpath("//option[@value='10']")).click();
-		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
 		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("737");
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
+		delay(500);
+		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
+		webDriver.findElement(By.xpath("//body/div[@id='wrap']/nav[@id='main-navigation']/div[@class='container']/div[@id='navbar-collapse']/ul[@class='nav navbar-nav navbar-right']/li[3]/a[1]")).click();
+		webDriver.findElement(By.xpath("//h5[@class='media-heading']")).click();
+		delay(400);
+		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
+		webDriver.findElement(By.xpath("//button[@id='cancelCloseBtn']")).click();
+		
 		}
 		
 	public void paymentSwish() {
