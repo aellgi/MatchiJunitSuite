@@ -116,7 +116,15 @@ public class MatchiSelenium {
 				"//tbody//tr[3]//td[2]//table[1]//tbody[1]//tr[1]//td[16]"))
 				.click();
 		delay(2000);
-		//
+		
+
+	}
+	
+	public void paymentCard() {
+		
+		delay(1500);
+		
+//
 		
 		//Click "Nytt kort" if the use an existing card exist
 		//(If use an existing card doesn't exist it selects "Nytt kort" by default
@@ -128,12 +136,6 @@ public class MatchiSelenium {
 		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
 		delay(500);
 		//
-
-	}
-	
-	public void paymentCard() {
-		
-		delay(1500);
 		
 		WebElement e;
 		//Enter kortnummer
