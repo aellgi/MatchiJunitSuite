@@ -1,9 +1,9 @@
 MATCHi Test suite
-UI-Tester på web site: beta1.matchi.se
+UI-Tester pÃ¥ web site: beta1.matchi.se
 
-Testerna är skrvna som jUNIT Tester som kör Selenium för att testa sidans:
+Testerna Ã¤r skrvna som jUNIT Tester som kÃ¶r Selenium fÃ¶r att testa sidans:
 
--Inloggning
--Söka upp och boka anläggning
--Hitta ledig dag och tid
--Boka och betala med kontokort
+-Inloggning<br>
+-SÃ¶ka upp och boka anlÃ¤ggning<br>
+-Hitta ledig dag och tid<br>
+-Boka och betala med kontokort<br>
