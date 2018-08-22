@@ -12,25 +12,16 @@ import org.junit.jupiter.api.Test;
 class TestSuite {
 
 	MatchiSelenium s = new MatchiSelenium();
-
-	//@Test
-	void bookingAFreeCourt() {
-		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
-		assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookCourt("Gnesta TK");
-		assertEquals(true, s.checkIfBooked().contains("Tack för din bokning!"));
-		s.quitSelenium();
-		
-	}
 	
 	@Test
-	void bookingACourt() {
+	void bookingHönöCourt() {
+		
+		
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
 		s.paymentCard();
-		System.out.println(s.checkIfBooked());
-		assertEquals(true, s.checkIfBooked().contains("Hönö"));
+		assertEquals(true, s.checkIfBooked());
 		s.unbook();
 		s.quitSelenium();
 	}

@@ -27,12 +27,16 @@ public class MatchiSelenium {
 	}
 
 	public String checkLogin() {
+		
+		//returnerar texten vid bilden av användaren (I vårt fall "mjuk")
 		WebElement e = webDriver.findElement(By.linkText("Mjuk"));
 		return e.getText();
 	}
 
 	public void chooseSport(String sport) {
 		WebElement e;
+		
+		//Denna metod funkar ej än!
 		e = webDriver.findElement(By.cssSelector(
 				"#hero > div > div > div.row > div > form > div > div.form-group.col-sm-3.col-xs-12.no-margin-padding > div > button > span.filter-option.pull-left"));
 		e.click();
@@ -70,7 +74,9 @@ public class MatchiSelenium {
 	}
 
 	public void login(String username, String password) {
-
+		
+		
+		//Click "Logga in" at top menu and then fill in name and password
 		webDriver.findElement(By.cssSelector("#navbar-collapse > ul.nav.navbar-nav.navbar-right > li:nth-child(2) > a"))
 				.click();
 		WebElement e = webDriver.findElement(By.cssSelector("#username"));
@@ -79,24 +85,41 @@ public class MatchiSelenium {
 		e = webDriver.findElement(By.cssSelector("#password"));
 		e.click();
 		e.sendKeys(password);
+		
+		//Click "Logga in"
 		webDriver.findElement(By.cssSelector("#loginForm > button")).click();
 	}
 
 	public void bookCourt(String search) {
-
-		webDriver.findElement(By.cssSelector("#navbar-collapse > ul.nav.navbar-nav.navbar-left > li:nth-child(2) > a"))
-				.click();
+		
+		
+		//Click "anläggningar"
+		webDriver.findElement(By.xpath("//a[contains(text(),'Anläggningar')]")).click();
+		//
+		
+		//Search for court
 		webDriver.findElement(By.id("q")).click();
 		webDriver.findElement(By.id("q")).clear();
 		webDriver.findElement(By.id("q")).sendKeys(search);
-		webDriver.findElement(By.cssSelector("#submit")).click();
+		webDriver.findElement(By.xpath("//input[@id='submit']")).click();
+		//
+		
+		//Click the searched court
 		webDriver.findElement(By.linkText(search)).click();
-		webDriver.findElement(By.cssSelector(
-				"#schedule > div > div > div:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td:nth-child(15)"))
+		//
+		
+		//Click at "22:00" Bana 2
+		//(Only works if the browser shows the white squares
+		//and not the squares with time in them 
+		//(These switch based on browser width)
+		webDriver.findElement(By.xpath(
+				"//tbody//tr[3]//td[2]//table[1]//tbody[1]//tr[1]//td[16]"))
 				.click();
 		delay(2000);
-		//webDriver.findElement(By.cssSelector("#confirmForm > div.modal-body > div:nth-child(5) > div.col-sm-8.col-xs-8 > div.form-group.no-bottom-margin > div > label"))
-		//		.click();
+		//
+		
+		//Click "Nytt kort" if the use an existing card exist
+		//(If use an existing card doesn't exist it selects "Nytt kort" by default
 		try {
 		webDriver.findElement(By.xpath("//label[@for='CREDIT_CARD']")).click();
 		} catch (Exception e) {
@@ -104,7 +127,7 @@ public class MatchiSelenium {
 		}
 		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
 		delay(500);
-
+		//
 
 	}
 	
@@ -113,21 +136,35 @@ public class MatchiSelenium {
 		delay(1500);
 		
 		WebElement e;
+		//Enter kortnummer
 		e = webDriver.findElement(By.xpath("//input[@placeholder='Kortnummer']"));
 		e.click();
 		e.sendKeys("2223000048410010");
+		//
+		
+		//Enter name
 		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(2) > input"));
 		e.click();
 		e.sendKeys("Mjuk Varutestare");
+		//
+		
+		//Enter month
 		webDriver.findElement(By.xpath("//option[@value='10']")).click();
+		
+		//Enter year
 		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
+		
+		//Enter cvc
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("737");
+		
+		//Click "Slutför betalning"
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		delay(500);
 		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
-		webDriver.findElement(By.xpath("//body/div[@id='wrap']/nav[@id='main-navigation']/div[@class='container']/div[@id='navbar-collapse']/ul[@class='nav navbar-nav navbar-right']/li[3]/a[1]")).click();
+		//
+		
 		delay(400);
 		
 		}
@@ -147,19 +184,37 @@ public class MatchiSelenium {
 		}
 	public void unbook() {
 		
-		delay(1500);
 		
-		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
+		//Click calendar
+		delay(1500);
+		webDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/ul[2]/li[3]/a")).click();
+		
+		//Click booking at top in dropdown
+		webDriver.findElement(By.xpath("//a[@class='userCancelBooking']//div[@class='media']")).click();
+		delay(500);
+		
+		//Click "Avboka"
+		webDriver.findElement(By.xpath("//a[@class='btn btn-danger'][contains(text(),'Avboka')]")).click();
+		
+		//Click away the window that appears
 		webDriver.findElement(By.xpath("//button[@id='cancelCloseBtn']")).click();
 		
 	}
 		
 		
 
-	public String checkIfBooked() {
-		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
-		System.out.println(webDriver.findElement(By.xpath("//h5[@class='media-heading']")).getText());;
-		return webDriver.findElement(By.xpath("//h5[@class='media-heading']")).getText();
+	public boolean checkIfBooked() {
+		
+		
+		//Se ifall det finns en ikon på schemaknappen längst upp på sidan
+		try {
+		webDriver.findElement(By.xpath("//span[@class='badge']"));
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+		
+		
 
 	}
 
