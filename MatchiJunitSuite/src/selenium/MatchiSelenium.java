@@ -128,10 +128,7 @@ public class MatchiSelenium {
 		delay(500);
 		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
 		webDriver.findElement(By.xpath("//body/div[@id='wrap']/nav[@id='main-navigation']/div[@class='container']/div[@id='navbar-collapse']/ul[@class='nav navbar-nav navbar-right']/li[3]/a[1]")).click();
-		webDriver.findElement(By.xpath("//h5[@class='media-heading']")).click();
 		delay(400);
-		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
-		webDriver.findElement(By.xpath("//button[@id='cancelCloseBtn']")).click();
 		
 		}
 		
@@ -148,12 +145,21 @@ public class MatchiSelenium {
 		
 		
 		}
+	public void unbook() {
+		
+		delay(1500);
+		
+		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
+		webDriver.findElement(By.xpath("//button[@id='cancelCloseBtn']")).click();
+		
+	}
 		
 		
 
 	public String checkIfBooked() {
-		return webDriver.findElement(By.cssSelector("#userBookingModal > div.modal-dialog > div > div.modal-body > h1"))
-				.getText();
+		webDriver.findElement(By.xpath("//a[contains(text(),'Avboka')]")).click();
+		System.out.println(webDriver.findElement(By.xpath("//h5[@class='media-heading']")).getText());;
+		return webDriver.findElement(By.xpath("//h5[@class='media-heading']")).getText();
 
 	}
 

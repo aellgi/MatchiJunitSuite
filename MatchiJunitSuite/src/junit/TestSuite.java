@@ -29,8 +29,10 @@ class TestSuite {
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
 		s.paymentCard();
-		//assertEquals(true, s.checkIfBooked().contains("Tack för din bokning!"));
-		//s.quitSelenium();
+		System.out.println(s.checkIfBooked());
+		assertEquals(true, s.checkIfBooked().contains("Hönö"));
+		s.unbook();
+		s.quitSelenium();
 	}
 
 }
