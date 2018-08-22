@@ -208,7 +208,10 @@ public class MatchiSelenium {
 		
 
 	}
-
+	/**
+	 * Lägger till en paus i testet
+	 * @param milliseconds
+	 */
 	public void delay(int milliseconds) {
 		try {
 			Thread.sleep(milliseconds);
