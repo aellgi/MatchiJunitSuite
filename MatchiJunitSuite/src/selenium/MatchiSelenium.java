@@ -172,8 +172,21 @@ public class MatchiSelenium {
 		}
 		
 	public void paymentSwish() {
-		//TO-DO
-				
+		
+		delay(1500);
+		// Click "Swish" 
+		webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Nytt konto-/kreditkort'])[1]/following::label[1]")).click();
+		webDriver.findElement(By.id("btnSubmit")).click();
+		webDriver.findElement(By.id("swish.telephoneNumber")).click();
+		webDriver.findElement(By.id("swish.telephoneNumber")).clear();
+		//Skriv in ett test mobilnr
+		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys("0702222222");
+		webDriver.findElement(By.id("mainSubmit")).click();
+		delay(2000);
+		// Här failar Swish betalningen
+		// TO-DO höra på fredag varför det failar och skriva klart swish betalningen
+		
+		
 		}
 	public void unbook() {
 		
