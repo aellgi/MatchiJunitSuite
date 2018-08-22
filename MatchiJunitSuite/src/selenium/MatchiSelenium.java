@@ -170,17 +170,8 @@ public class MatchiSelenium {
 		}
 		
 	public void paymentSwish() {
-		WebElement e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div.form-group.col-sm-12.has-feedback.has-feedback-right.has-error > div > input"));
-		//e.click();
-		e.sendKeys("2223000048410010");
-		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(2) > input"));
-		e.click();
-		e.sendKeys("Mjuk Varutestare");
-		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(3) > select"));
-		e.click();
-		webDriver.findElement(By.linkText("10")).click();
-		
-		
+		//TO-DO
+				
 		}
 	public void unbook() {
 		
