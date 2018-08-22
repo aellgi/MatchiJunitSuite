@@ -177,6 +177,7 @@ public class MatchiSelenium {
 		// Click "Swish" 
 		webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Nytt konto-/kreditkort'])[1]/following::label[1]")).click();
 		webDriver.findElement(By.id("btnSubmit")).click();
+		// Klicka i mobilnummer rutan
 		webDriver.findElement(By.id("swish.telephoneNumber")).click();
 		webDriver.findElement(By.id("swish.telephoneNumber")).clear();
 		//Skriv in ett test mobilnr
