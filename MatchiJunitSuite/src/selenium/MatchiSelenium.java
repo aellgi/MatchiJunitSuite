@@ -171,7 +171,7 @@ public class MatchiSelenium {
 		
 		}
 		
-	public void paymentSwish() {
+	public void paymentSwish(String mobileNr) {
 		
 		delay(1500);
 		// Click "Swish" 
@@ -181,7 +181,7 @@ public class MatchiSelenium {
 		webDriver.findElement(By.id("swish.telephoneNumber")).click();
 		webDriver.findElement(By.id("swish.telephoneNumber")).clear();
 		//Skriv in ett test mobilnr
-		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys("0702222222");
+		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys(mobileNr);
 		webDriver.findElement(By.id("mainSubmit")).click();
 		delay(2000);
 		// Här failar Swish betalningen
