@@ -33,6 +33,7 @@ class TestSuite {
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
 		s.paymentSwish();
+		// Här failar testet...
 		// assertEquals(true, s.checkIfBooked());
 		// s.unbook();
 		s.quitSelenium();
