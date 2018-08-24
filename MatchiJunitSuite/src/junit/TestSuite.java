@@ -3,6 +3,7 @@ package junit;
 import selenium.MatchiSelenium;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -22,6 +23,8 @@ class TestSuite {
 		s.bookCourt("Hönö Tennissällskap");
 		s.paymentCard();
 		assertEquals(true, s.checkIfBooked());
+		s.paymentCardWrongCVC();
+		assertTrue(s.checkWrongCVCNumber("Den angivna kortets säkerhetskod är ogiltig"));
 		s.unbook();
 		s.quitSelenium();
 	}
