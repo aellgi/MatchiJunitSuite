@@ -205,14 +205,14 @@ delay(1500);
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		
 		delay(400);
-		}
+	}
 
-		public boolean checkWrongCVCNumber(String checkCVC) {
-			WebElement element = webDriver.findElement(By.xpath("//*[@id=\"userBookingModal\"]/div[1]/div/div[2]/h6"));
-			String text = element.getText();
-			System.out.println(text);
-			return text.contains(checkCVC);
-		}
+	public boolean checkWrongCVCNumber(String checkCVC) {
+		WebElement element = webDriver.findElement(By.xpath("//*[@id=\"userBookingModal\"]/div[1]/div/div[2]/h6"));
+		String text = element.getText();
+		System.out.println(text);
+		return text.contains(checkCVC);
+	}
 		
 	public void unbook() {
 		
