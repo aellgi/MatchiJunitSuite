@@ -58,6 +58,7 @@ public class MatchiSelenium {
 	}
 
 	public void quitSelenium() {
+		delay(200);
 		webDriver.quit();
 	}
 
@@ -84,30 +85,38 @@ public class MatchiSelenium {
 
 	public void bookCourt(String search) {
 
-		webDriver.findElement(By.cssSelector("#navbar-collapse > ul.nav.navbar-nav.navbar-left > li:nth-child(2) > a"))
-				.click();
+		//Click "anläggningar"
+		webDriver.findElement(By.xpath("//a[contains(text(),'Anläggningar')]")).click();
+		//
+		
+		//Search for court
 		webDriver.findElement(By.id("q")).click();
 		webDriver.findElement(By.id("q")).clear();
 		webDriver.findElement(By.id("q")).sendKeys(search);
-		webDriver.findElement(By.cssSelector("#submit")).click();
+		webDriver.findElement(By.xpath("//input[@id='submit']")).click();
+		//
+		
+		//Click the searched court
 		webDriver.findElement(By.linkText(search)).click();
-		webDriver.findElement(By.cssSelector(
-				"#schedule > div > div > div:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(2) > table > tbody > tr > td:nth-child(15)"))
+		//
+		
+		//Click at "22:00" Bana 2
+		//(Only works if the browser shows the white squares
+		//and not the squares with time in them 
+		//(These switch based on browser width)
+		webDriver.findElement(By.xpath(
+				"//tbody//tr[3]//td[2]//table[1]//tbody[1]//tr[1]//td[16]"))
 				.click();
 		delay(2000);
-		webDriver.findElement(By.cssSelector("#confirmForm > div.modal-body > div:nth-child(5) > div.col-sm-8.col-xs-8 > div.form-group.no-bottom-margin > div > label"))
-				.click();
-		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
-		delay(500);
 
 
 	}
 	
 	public void paymentCard() {
 		
-delay(1500);
+		delay(1500);
 		
-		//
+//
 		
 		//Click "Nytt kort" if the use an existing card exist
 		//(If use an existing card doesn't exist it selects "Nytt kort" by default
@@ -139,25 +148,35 @@ delay(1500);
 		//Enter year
 		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
 		
-		//Enter wrong CVC
+		//Enter cvc
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("737");
+		
+		//Click "Slutför betalning"
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
+		delay(2000);
+		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
+		//
 		
 		delay(400);
+		
 		}
 		
 	public void paymentSwish(String mobileNr) {
-		WebElement e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div.form-group.col-sm-12.has-feedback.has-feedback-right.has-error > div > input"));
-		//e.click();
-		e.sendKeys("2223000048410010");
-		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(2) > input"));
-		e.click();
-		e.sendKeys("Mjuk Varutestare");
-		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(3) > select"));
-		e.click();
-		webDriver.findElement(By.linkText("10")).click();
+		delay(1500);
+		// Click "Swish" 
+		webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Nytt konto-/kreditkort'])[1]/following::label[1]")).click();
+		webDriver.findElement(By.id("btnSubmit")).click();
+		// Klicka i mobilnummer rutan
+		webDriver.findElement(By.id("swish.telephoneNumber")).click();
+		webDriver.findElement(By.id("swish.telephoneNumber")).clear();
+		//Skriv in ett test mobilnr
+		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys(mobileNr);
+		webDriver.findElement(By.id("mainSubmit")).click();
+		delay(2000);
+		// Här failar Swish betalningen
+		// TO-DO höra på fredag varför det failar och skriva klart swish betalningen
 		
 		
 		}
@@ -204,13 +223,16 @@ delay(1500);
 		e.sendKeys("738");
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		
-		delay(400);
+		
+		delay(2000);
 	}
 
 	public boolean checkWrongCVCNumber(String checkCVC) {
 		WebElement element = webDriver.findElement(By.xpath("//*[@id=\"userBookingModal\"]/div[1]/div/div[2]/h6"));
 		String text = element.getText();
 		System.out.println(text);
+		delay(2000);
+		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
 		return text.contains(checkCVC);
 	}
 		
@@ -220,22 +242,31 @@ delay(1500);
 		//Click calendar
 		delay(1500);
 		webDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/ul[2]/li[3]/a")).click();
-		
+				
 		//Click booking at top in dropdown
 		webDriver.findElement(By.xpath("//a[@class='userCancelBooking']//div[@class='media']")).click();
 		delay(500);
-		
+				
 		//Click "Avboka"
 		webDriver.findElement(By.xpath("//a[@class='btn btn-danger'][contains(text(),'Avboka')]")).click();
-		
+				
 		//Click away the window that appears
 		webDriver.findElement(By.xpath("//button[@id='cancelCloseBtn']")).click();
 		
 	}
 
-	public String checkIfBooked() {
-		return webDriver.findElement(By.cssSelector("#userBookingModal > div.modal-dialog > div > div.modal-body > h1"))
-				.getText();
+	public boolean checkIfBooked() {
+		
+		
+		//Se ifall det finns en ikon på schemaknappen längst upp på sidan
+		try {
+		webDriver.findElement(By.xpath("//span[@class='badge']"));
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+		
+		
 
 	}
 
