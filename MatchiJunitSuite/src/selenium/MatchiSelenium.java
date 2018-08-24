@@ -105,24 +105,47 @@ public class MatchiSelenium {
 	
 	public void paymentCard() {
 		
-		delay(5000);
+delay(1500);
+		
+		//
+		
+		//Click "Nytt kort" if the use an existing card exist
+		//(If use an existing card doesn't exist it selects "Nytt kort" by default
+		try {
+		webDriver.findElement(By.xpath("//label[@for='CREDIT_CARD']")).click();
+		} catch (Exception e) {
+			
+		}
+		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
+		delay(500);
+		//
 		
 		WebElement e;
+		//Enter kortnummer
 		e = webDriver.findElement(By.xpath("//input[@placeholder='Kortnummer']"));
 		e.click();
 		e.sendKeys("2223000048410010");
+		//
+		
+		//Enter name
 		e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(2) > input"));
 		e.click();
 		e.sendKeys("Mjuk Varutestare");
-		//e = webDriver.findElement(By.cssSelector("#adyen-encrypted-form > div.modal-body.relative > div > div > div:nth-child(2) > div:nth-child(3) > select"));
-		//e.click();
+		//
+		
+		//Enter month
 		webDriver.findElement(By.xpath("//option[@value='10']")).click();
+		
+		//Enter year
 		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
-		webDriver.findElement(By.xpath("//option[@value='2020']")).click();
+		
+		//Enter wrong CVC
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("737");
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
+		
+		delay(400);
 		}
 		
 	public void paymentSwish(String mobileNr) {
