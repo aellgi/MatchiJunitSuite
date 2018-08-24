@@ -171,10 +171,10 @@ delay(1500);
 		//Click "Nytt kort" if the use an existing card exist
 		//(If use an existing card doesn't exist it selects "Nytt kort" by default
 		try {
-		webDriver.findElement(By.xpath("//label[@for='CREDIT_CARD']")).click();
-		} catch (Exception e) {
-			
-		}
+			webDriver.findElement(By.xpath("//label[@for='CREDIT_CARD']")).click();
+			} catch (Exception e) {
+				
+			}
 		webDriver.findElement(By.cssSelector("#btnSubmit")).click();
 		delay(500);
 		//
