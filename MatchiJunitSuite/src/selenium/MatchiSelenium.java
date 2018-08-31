@@ -32,28 +32,7 @@ public class MatchiSelenium {
 		return e.getText();
 	}
 
-	public void chooseSport(String sport) {
-		WebElement e;
-		e = webDriver.findElement(By.cssSelector(
-				"#hero > div > div > div.row > div > form > div > div.form-group.col-sm-3.col-xs-12.no-margin-padding > div > button > span.filter-option.pull-left"));
-		e.click();
-
-		if (sport.contains("tennis")) {
-
-			e = webDriver.findElement(By.cssSelector(
-					"#hero > div > div > div.row > div > form > div > div.form-group.col-sm-3.col-xs-12.no-margin-padding > div > div > ul > li:nth-child(2) > a"));
-			e.click();
-		}
-
-		if (sport.contains("Badminton")) {
-
-			e = webDriver.findElement(By.cssSelector(
-					"#hero > div > div > div.row > div > form > div > div.form-group.col-sm-3.col-xs-12.no-margin-padding > div > div > ul > li:nth-child(3) > a"));
-			e.click();
-		}
-
-	}
-
+	
 	public void goToStart() {
 		webDriver.get("https://beta1.matchi.se/");
 	}
