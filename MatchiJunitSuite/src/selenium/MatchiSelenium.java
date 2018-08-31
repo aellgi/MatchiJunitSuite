@@ -18,6 +18,7 @@ public class MatchiSelenium {
 		webDriver = new ChromeDriver();
 		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
+		webDriver.manage().window().maximize();
 		goToStart();
 
 	}
