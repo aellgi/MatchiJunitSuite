@@ -4,6 +4,7 @@ package selenium;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,14 +14,31 @@ public class MatchiSelenium {
 
 	private WebDriver webDriver;
 
-	public MatchiSelenium() {
+	
+	//One constructor for various sizes
+	public MatchiSelenium(String size) {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		webDriver = new ChromeDriver();
 		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
-		webDriver.manage().window().maximize();
+		if (size.contains("max")) {
+			webDriver.manage().window().maximize();
+		} else if (size.contains("ipad")) {
+			webDriver.manage().window().setSize(new Dimension(768, 1080));
+		} else if (size.contains("mobile")) {
+			webDriver.manage().window().setSize(new Dimension(375, 1080));
+		}
 		goToStart();
 
+	}
+	
+	//One constructor without parameter for always maxed
+	public MatchiSelenium() {
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		webDriver = new ChromeDriver();
+		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		webDriver.manage().window().maximize();
+		goToStart();
 	}
 
 	public String getUrl() {
