@@ -15,7 +15,7 @@ public class MatchiSelenium {
 	private WebDriver webDriver;
 
 	
-	//One constructor for various sizes
+/*	//One constructor for various sizes
 	public MatchiSelenium(String size) {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		webDriver = new ChromeDriver();
@@ -25,12 +25,14 @@ public class MatchiSelenium {
 			webDriver.manage().window().maximize();
 		} else if (size.contains("ipad")) {
 			webDriver.manage().window().setSize(new Dimension(768, 1080));
+			webDriver = new ChromeDriver();
 		} else if (size.contains("mobile")) {
 			webDriver.manage().window().setSize(new Dimension(375, 1080));
 		}
 		goToStart();
+	
 
-	}
+	} */
 	
 	//One constructor without parameter for always maxed
 	public MatchiSelenium() {
@@ -109,6 +111,19 @@ public class MatchiSelenium {
 
 
 	}
+	
+	public void setSize(String size) {
+		
+	
+		if (size.contains("max")) {
+			webDriver.manage().window().maximize();
+		} else if (size.contains("ipad")) {
+			webDriver.manage().window().setSize(new Dimension(768, 1080));
+			webDriver = new ChromeDriver();
+		} else if (size.contains("mobile")) {
+			webDriver.manage().window().setSize(new Dimension(375, 1080));
+	}
+}
 	
 	public void paymentCard() {
 		

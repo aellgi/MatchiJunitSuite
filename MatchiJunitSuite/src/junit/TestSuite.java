@@ -18,6 +18,7 @@ class TestSuite {
 	@Test
 	void bookingHönöCourtCardCorrectCVC() {
 		
+		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
@@ -30,6 +31,7 @@ class TestSuite {
 	@Test
 	void bookingHönöCourtCardWrongCVC() {
 		
+		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
@@ -41,6 +43,7 @@ class TestSuite {
 	@Test
 	void bookingHönöCourtSwish() {
 		
+		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
 		s.bookCourt("Hönö Tennissällskap");
