@@ -17,7 +17,25 @@ public class MatchiSelenium {
 	private WebDriver webDriver;
 
 	
+/*	//One constructor for various sizes
+	public MatchiSelenium(String size) {
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		webDriver = new ChromeDriver();
+		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
+		if (size.contains("max")) {
+			webDriver.manage().window().maximize();
+		} else if (size.contains("ipad")) {
+			webDriver.manage().window().setSize(new Dimension(768, 1080));
+			webDriver = new ChromeDriver();
+		} else if (size.contains("mobile")) {
+			webDriver.manage().window().setSize(new Dimension(375, 1080));
+		}
+		goToStart();
+	
+
+	} */
+	
 	//One constructor without parameter for always maxed
 	public MatchiSelenium() {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -65,30 +83,11 @@ public class MatchiSelenium {
 		e.sendKeys(password);
 		webDriver.findElement(By.cssSelector("#loginForm > button")).click();
 	}
-	
-	public void loginMobile(String username, String password) {
-		
-		webDriver.findElement(By.xpath("//div[@class='navbar-header']//button[@type='button']")).click();
-		delay(500);
-		
-		webDriver.findElement(By.xpath("//a[contains(text(),'Logga in')]")).click();
-		delay(200);
-		
-		WebElement e = webDriver.findElement(By.cssSelector("#username"));
-		e.click();
-		e.sendKeys(username);
-		e = webDriver.findElement(By.cssSelector("#password"));
-		e.click();
-		e.sendKeys(password);
-		webDriver.findElement(By.cssSelector("#loginForm > button")).click();
-		delay(400);
-	}
-
 
 	public void bookCourt(String search) {
 
-		//Click "anlÃ¤ggningar"
-		webDriver.findElement(By.xpath("//a[contains(text(),'AnlÃ¤ggningar')]")).click();
+		//Click "anläggningar"
+		webDriver.findElement(By.xpath("//a[contains(text(),'Anläggningar')]")).click();
 		//
 		
 		//Search for court
@@ -114,52 +113,15 @@ public class MatchiSelenium {
 
 	}
 	
-	
-	public void bookMobileCourt(String search) {
-		
-		
-		//Click Menu-button
-		webDriver.findElement(By.xpath("//div[@class='navbar-header']//button[@type='button']")).click();
-		//Click "anlÃ¤ggningar"
-		webDriver.findElement(By.xpath("//a[contains(text(),'AnlÃ¤ggningar')]")).click();
-		//
-		
-		//Search for court
-		webDriver.findElement(By.id("q")).click();
-		webDriver.findElement(By.id("q")).clear();
-		webDriver.findElement(By.id("q")).sendKeys(search);
-		webDriver.findElement(By.xpath("//input[@id='submit']")).click();
-		//
-		
-		//Click the searched court
-		webDriver.findElement(By.linkText(search)).click();
-		//
-		
-		//Click at "22:00" Bana 2
-		//(Only works if the browser shows the white squares
-		//and not the squares with time in them 
-		//(These switch based on browser width)
-		webDriver.findElement(By.xpath(
-				"//ul[@class='list-inline no-margin']//li[12]//button[1]"))
-				.click();
-		delay(300);
-		webDriver.findElement(By.xpath("//a[@id='sedca8f7c5ca8ada9015cb27c82e55c75']"))
-			.click();
-		delay(2000);
-	}
-	
 	public void setSize(String size) {
 		
 	
 		if (size.contains("max")) {
 			webDriver.manage().window().maximize();
-			
 		} else if (size.contains("ipad")) {
 			webDriver.manage().window().setSize(new Dimension(768, 1080));
-
 		} else if (size.contains("mobile")) {
 			webDriver.manage().window().setSize(new Dimension(375, 1080));
-			
 	}
 }
 	
@@ -204,14 +166,14 @@ public class MatchiSelenium {
 		e.click();
 		e.sendKeys("737");
 		
-		//Click "SlutfÃ¶r betalning"
-		webDriver.findElement(By.xpath("//input[@value='SlutfÃ¶r betalning']")).click();
+		//Click "Slutför betalning"
+		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		delay(2000);
 		
 		WebElement element = webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Klart!'])[1]/following::h1[1]"));
 		String text = element.getText();
 		System.out.println(text);
-		assertTrue(text.contains("Tack fÃ¶r din bokning!"));
+		assertTrue(text.contains("Tack för din bokning!"));
 		
 		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
 		//
@@ -232,8 +194,8 @@ public class MatchiSelenium {
 		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys(mobileNr);
 		webDriver.findElement(By.id("mainSubmit")).click();
 		delay(2000);
-		// HÃ¤r failar Swish betalningen
-		// TO-DO hÃ¶ra pÃ¥ fredag varfÃ¶r det failar och skriva klart swish betalningen
+		// Här failar Swish betalningen
+		// TO-DO höra på fredag varför det failar och skriva klart swish betalningen
 		
 		
 		}
@@ -278,14 +240,13 @@ public class MatchiSelenium {
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("738");
-		webDriver.findElement(By.xpath("//input[@value='SlutfÃ¶r betalning']")).click();
+		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		
 		
 		delay(2000);
 	}
 
 	public boolean checkWrongCVCNumber(String checkCVC) {
-		
 		WebElement element = webDriver.findElement(By.xpath("//*[@id=\"userBookingModal\"]/div[1]/div/div[2]/h6"));
 		String text = element.getText();
 		System.out.println(text);
@@ -316,7 +277,7 @@ public class MatchiSelenium {
 	public boolean checkIfBooked() {
 		
 		
-		//Se ifall det finns en ikon pÃ¥ schemaknappen lÃ¤ngst upp pÃ¥ sidan
+		//Se ifall det finns en ikon på schemaknappen längst upp på sidan
 		try {
 		webDriver.findElement(By.xpath("//span[@class='badge']"));
 		} catch (Exception e) {
@@ -334,13 +295,13 @@ public class MatchiSelenium {
 	    webDriver.findElement(By.id("username")).sendKeys(username);
 	    webDriver.findElement(By.id("password")).clear();
 	    webDriver.findElement(By.id("password")).sendKeys(password);
-	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='HÃ¥ll mig inloggad'])[1]/following::button[1]")).click();
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Håll mig inloggad'])[1]/following::button[1]")).click();
 	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Toggla navigation'])[1]/following::span[3]")).click();
 	}
 	
 	public void bookCourtMobileOrIpad(String search) {
 		
-	    webDriver.findElement(By.linkText("AnlÃ¤ggningar")).click();
+	    webDriver.findElement(By.linkText("Anläggningar")).click();
 	    webDriver.findElement(By.id("q")).click();
 	    webDriver.findElement(By.id("q")).clear();
 	    webDriver.findElement(By.id("q")).sendKeys(search);
