@@ -14,19 +14,29 @@ class TestSuite {
 
 	MatchiSelenium s = new MatchiSelenium();
 
+	@Test
+	void bookingHönöCourtCardCorrectCVCIpad() {
+		
+		s.setSize("ipad");
+		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.bookCourtMobileOrIpad("Hönö Tennissällskap");
+		s.paymentCard();
+		s.unbookMobileOrIpad();
+		s.quitSelenium();
+	}	
 
 	@Test
 	void bookingHönöCourtCardCorrectCVCMobile() {
 		
 		s.setSize("mobile");
-		s.loginWithMobile("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		s.bookCourtMobileOrIpad("Hönö Tennissällskap");
 		s.paymentCard();
 		s.unbookMobileOrIpad();
 		s.quitSelenium();
 	}	
 	
-	//@Test
+	@Test
 	void bookingHönöCourtCardCorrectCVC() {
 		
 		s.setSize("max");

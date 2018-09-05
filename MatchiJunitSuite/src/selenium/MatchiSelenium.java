@@ -1,6 +1,8 @@
 package selenium;
 
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -118,7 +120,6 @@ public class MatchiSelenium {
 			webDriver.manage().window().maximize();
 		} else if (size.contains("ipad")) {
 			webDriver.manage().window().setSize(new Dimension(768, 1080));
-			webDriver = new ChromeDriver();
 		} else if (size.contains("mobile")) {
 			webDriver.manage().window().setSize(new Dimension(375, 1080));
 	}
@@ -168,6 +169,12 @@ public class MatchiSelenium {
 		//Click "Slutför betalning"
 		webDriver.findElement(By.xpath("//input[@value='Slutför betalning']")).click();
 		delay(2000);
+		
+		WebElement element = webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Klart!'])[1]/following::h1[1]"));
+		String text = element.getText();
+		System.out.println(text);
+		assertTrue(text.contains("Tack för din bokning!"));
+		
 		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
 		//
 		
@@ -280,10 +287,10 @@ public class MatchiSelenium {
 	
 	}
 	
-	public void loginWithMobile(String username, String password) {
+	public void loginWithMobileOrIpad(String username, String password) {
 		
 	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
-	    webDriver.findElement(By.linkText("Logga in")).click();
+		webDriver.findElement(By.linkText("Logga in")).click();
 	    webDriver.findElement(By.id("username")).clear();
 	    webDriver.findElement(By.id("username")).sendKeys(username);
 	    webDriver.findElement(By.id("password")).clear();
@@ -301,14 +308,10 @@ public class MatchiSelenium {
 	    webDriver.findElement(By.id("submit")).click();
 	    delay(1000);
 	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Pickleball'])[2]/following::a[2]")).click();
-	    // webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Avbryt'])[3]/following::button[16]")).click();
-	    // delay(1500);
-	    // webDriver.findElement(By.id("sedca8f7c5ca8ada9015cb27c85c55d35")).click();
 	    webDriver.findElement(By.xpath("//ul[@class='list-inline no-margin']//li[1]//button[1]")).click();
 		delay(1500);
-		webDriver.findElement(By.id("sedca8f7c5ca8ada9015cb27c859f5d27")).click();
-		              	
-		//*[@id="sedca8f7c5ca8ada9015cb27c859f5d27"]
+		webDriver.findElement(By.xpath("//*/ul/li[2]/table/tbody/tr/td[6]")).click();
+		
 		
 		delay(1500);
 	}
@@ -324,7 +327,16 @@ public class MatchiSelenium {
 	    webDriver.findElement(By.linkText("Avboka")).click();
 	    webDriver.findElement(By.id("cancelCloseBtn")).click();
 		
-	}		
+	}
+	
+	public boolean checkBookText(String checkText) {
+		WebElement element = webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Klart!'])[1]/following::h1[1]"));
+		String text = element.getText();
+		System.out.println(text);
+		delay(2000);
+		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
+		return text.contains(checkText);
+	}
 
 	public void delay(int milliseconds) {
 		try {
