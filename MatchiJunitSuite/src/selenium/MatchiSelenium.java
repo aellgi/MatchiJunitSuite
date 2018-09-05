@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class MatchiSelenium {
 
@@ -277,10 +278,54 @@ public class MatchiSelenium {
 			return false;
 		}
 		return true;
-		
-		
-
+	
 	}
+	
+	public void loginWithMobileOrIpad(String username, String password) {
+		
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
+	    webDriver.findElement(By.linkText("Logga in")).click();
+	    webDriver.findElement(By.id("username")).clear();
+	    webDriver.findElement(By.id("username")).sendKeys(username);
+	    webDriver.findElement(By.id("password")).clear();
+	    webDriver.findElement(By.id("password")).sendKeys(password);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Håll mig inloggad'])[1]/following::button[1]")).click();
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Toggla navigation'])[1]/following::span[3]")).click();
+	}
+	
+	public void bookCourtMobileOrIpad(String search) {
+		
+	    webDriver.findElement(By.linkText("Anläggningar")).click();
+	    webDriver.findElement(By.id("q")).click();
+	    webDriver.findElement(By.id("q")).clear();
+	    webDriver.findElement(By.id("q")).sendKeys(search);
+	    webDriver.findElement(By.id("submit")).click();
+	    delay(1000);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Pickleball'])[2]/following::a[2]")).click();
+	    // webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Avbryt'])[3]/following::button[16]")).click();
+	    // delay(1500);
+	    // webDriver.findElement(By.id("sedca8f7c5ca8ada9015cb27c85c55d35")).click();
+	    webDriver.findElement(By.xpath("//ul[@class='list-inline no-margin']//li[1]//button[1]")).click();
+		delay(1500);
+		webDriver.findElement(By.id("sedca8f7c5ca8ada9015cb27c859f5d27")).click();
+		              	
+		//*[@id="sedca8f7c5ca8ada9015cb27c859f5d27"]
+		
+		delay(1500);
+	}
+	
+	public void unbookMobileOrIpad() {
+		
+		delay(1500);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
+	    delay(1500);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Visa alla meddelanden'])[1]/following::span[1]")).click();
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Visa alla meddelanden'])[1]/following::div[4]")).click();
+	    delay(1500);
+	    webDriver.findElement(By.linkText("Avboka")).click();
+	    webDriver.findElement(By.id("cancelCloseBtn")).click();
+		
+	}		
 
 	public void delay(int milliseconds) {
 		try {

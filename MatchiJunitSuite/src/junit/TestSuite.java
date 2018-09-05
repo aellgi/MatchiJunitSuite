@@ -19,12 +19,10 @@ class TestSuite {
 	void bookingHönöCourtCardCorrectCVCMobile() {
 		
 		s.setSize("mobile");
-		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
-		assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookCourt("Hönö Tennissällskap");
+		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.bookCourtMobileOrIpad("Hönö Tennissällskap");
 		s.paymentCard();
-		assertEquals(true, s.checkIfBooked());
-		s.unbook();
+		s.unbookMobileOrIpad();
 		s.quitSelenium();
 	}	
 	
