@@ -9,7 +9,7 @@ Testerna är skrvna som jUNIT Tester som kör Selenium för att testa sidans:
 -Hitta ledig dag och tid<br>
 -Boka och betala med kontokort<br>
 
-Allt testas med 3 olika lägen:
+Allt testas med 3 olika lägen:<br>
 -Max skärmbrädd<br>
 -Mobile (375)<br>
 -iPad (768)<br>
