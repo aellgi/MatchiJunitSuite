@@ -19,7 +19,7 @@ class TestSuite {
 	void bookingHönöCourtCardCorrectCVCMobile() {
 		
 		s.setSize("mobile");
-		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.loginWithMobile("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		s.bookCourtMobileOrIpad("Hönö Tennissällskap");
 		s.paymentCard();
 		s.unbookMobileOrIpad();

@@ -280,7 +280,7 @@ public class MatchiSelenium {
 	
 	}
 	
-	public void loginWithMobileOrIpad(String username, String password) {
+	public void loginWithMobile(String username, String password) {
 		
 	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
 	    webDriver.findElement(By.linkText("Logga in")).click();
