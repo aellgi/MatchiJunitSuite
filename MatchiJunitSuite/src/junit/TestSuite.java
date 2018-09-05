@@ -16,6 +16,19 @@ class TestSuite {
 
 
 	@Test
+	void bookingHönöCourtCardCorrectCVCMobile() {
+		
+		s.setSize("mobile");
+		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		assertEquals(s.checkLogin().contains("Mjuk"), true);
+		s.bookCourt("Hönö Tennissällskap");
+		s.paymentCard();
+		assertEquals(true, s.checkIfBooked());
+		s.unbook();
+		s.quitSelenium();
+	}	
+	
+	//@Test
 	void bookingHönöCourtCardCorrectCVC() {
 		
 		s.setSize("max");
@@ -28,7 +41,7 @@ class TestSuite {
 		s.quitSelenium();
 	}
 	
-	@Test
+	//@Test
 	void bookingHönöCourtCardWrongCVC() {
 		
 		s.setSize("max");
@@ -40,7 +53,7 @@ class TestSuite {
 		s.quitSelenium();
 	}
 	
-	@Test
+	//@Test
 	void bookingHönöCourtSwish() {
 		
 		s.setSize("max");

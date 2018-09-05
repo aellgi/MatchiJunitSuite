@@ -39,7 +39,6 @@ public class MatchiSelenium {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		webDriver = new ChromeDriver();
 		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-		webDriver.manage().window().maximize();
 		goToStart();
 	}
 
