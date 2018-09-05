@@ -14,14 +14,35 @@ class TestSuite {
 
 	MatchiSelenium s = new MatchiSelenium();
 
+	@Test
+	void bookingHÃ¶nÃ¶CourtCardCorrectCVCIpad() {
+		
+		s.setSize("ipad");
+		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.bookCourtMobileOrIpad("HÃ¶nÃ¶ TennissÃ¤llskap");
+		s.paymentCard();
+		s.unbookMobileOrIpad();
+		s.quitSelenium();
+	}	
 
-	//@Test
-	void bookingHönöCourtCardCorrectCVC() {
+	@Test
+	void bookingHÃ¶nÃ¶CourtCardCorrectCVCMobile() {
+		
+		s.setSize("mobile");
+		s.loginWithMobileOrIpad("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		s.bookCourtMobileOrIpad("HÃ¶nÃ¶ TennissÃ¤llskap");
+		s.paymentCard();
+		s.unbookMobileOrIpad();
+		s.quitSelenium();
+	}	
+	
+	@Test
+	void bookingHÃ¶nÃ¶CourtCardCorrectCVC() {
 		
 		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookCourt("Hönö Tennissällskap");
+		s.bookCourt("HÃ¶nÃ¶ TennissÃ¤llskap");
 		s.paymentCard();
 		assertEquals(true, s.checkIfBooked());
 		s.unbook();
@@ -29,38 +50,38 @@ class TestSuite {
 	}
 	
 	//@Test
-	void bookingHönöCourtCardWrongCVC() {
+	void bookingHÃ¶nÃ¶CourtCardWrongCVC() {
 		
 		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookCourt("Hönö Tennissällskap");
+		s.bookCourt("HÃ¶nÃ¶ TennissÃ¤llskap");
 		s.paymentCardWrongCVC();
-		assertTrue(s.checkWrongCVCNumber("Den angivna kortets säkerhetskod är ogiltig"));
+		assertTrue(s.checkWrongCVCNumber("Den angivna kortets sÃ¤kerhetskod Ã¤r ogiltig"));
 		s.quitSelenium();
 	}
 	
 	//@Test
-	void bookingHönöCourtSwish() {
+	void bookingHÃ¶nÃ¶CourtSwish() {
 		
 		s.setSize("max");
 		s.login("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookCourt("Hönö Tennissällskap");
+		s.bookCourt("HÃ¶nÃ¶ TennissÃ¤llskap");
 		s.paymentSwish("0777777777");
-		// Här failar testet...
+		// HÃ¤r failar testet...
 		// assertEquals(true, s.checkIfBooked());
 		// s.unbook();
 		s.quitSelenium();
 	}
 	
 	@Test
-	void bokingHönöMobile() {
+	void bokingHÃ¶nÃ¶Mobile() {
 		
 		s.setSize("mobile");
 		s.loginMobile("mjukvarutestare1@mailinator.com", "mjukvarutestare");
 		//assertEquals(s.checkLogin().contains("Mjuk"), true);
-		s.bookMobileCourt("Hönö Tennissällskap");
+		s.bookMobileCourt("HÃ¶nÃ¶ TennissÃ¤llskap");
 		s.paymentCard();
 		assertEquals(true, s.checkIfBooked());
 		s.unbook();

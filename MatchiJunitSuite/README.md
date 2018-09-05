@@ -8,4 +8,8 @@ Testerna är skrvna som jUNIT Tester som kör Selenium för att testa sidans:
 -Söka upp och boka anläggning<br>
 -Hitta ledig dag och tid<br>
 -Boka och betala med kontokort<br>
--Boka och betala med swish<br>
+
+Allt testas med 3 olika lägen:<br>
+-Max skärmbrädd<br>
+-Mobile (375)<br>
+-iPad (768)<br>

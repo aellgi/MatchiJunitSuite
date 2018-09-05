@@ -1,6 +1,8 @@
 package selenium;
 
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -20,8 +22,7 @@ public class MatchiSelenium {
 	public MatchiSelenium() {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		webDriver = new ChromeDriver();
-		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		webDriver.manage().window().maximize();
+		webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		goToStart();
 	}
 
@@ -86,8 +87,8 @@ public class MatchiSelenium {
 
 	public void bookCourt(String search) {
 
-		//Click "anl‰ggningar"
-		webDriver.findElement(By.xpath("//a[contains(text(),'Anl‰ggningar')]")).click();
+		//Click "anl√§ggningar"
+		webDriver.findElement(By.xpath("//a[contains(text(),'Anl√§ggningar')]")).click();
 		//
 		
 		//Search for court
@@ -119,8 +120,8 @@ public class MatchiSelenium {
 		
 		//Click Menu-button
 		webDriver.findElement(By.xpath("//div[@class='navbar-header']//button[@type='button']")).click();
-		//Click "anl‰ggningar"
-		webDriver.findElement(By.xpath("//a[contains(text(),'Anl‰ggningar')]")).click();
+		//Click "anl√§ggningar"
+		webDriver.findElement(By.xpath("//a[contains(text(),'Anl√§ggningar')]")).click();
 		//
 		
 		//Search for court
@@ -155,7 +156,7 @@ public class MatchiSelenium {
 			
 		} else if (size.contains("ipad")) {
 			webDriver.manage().window().setSize(new Dimension(768, 1080));
-			
+
 		} else if (size.contains("mobile")) {
 			webDriver.manage().window().setSize(new Dimension(375, 1080));
 			
@@ -203,9 +204,15 @@ public class MatchiSelenium {
 		e.click();
 		e.sendKeys("737");
 		
-		//Click "Slutfˆr betalning"
-		webDriver.findElement(By.xpath("//input[@value='Slutfˆr betalning']")).click();
+		//Click "Slutf√∂r betalning"
+		webDriver.findElement(By.xpath("//input[@value='Slutf√∂r betalning']")).click();
 		delay(2000);
+		
+		WebElement element = webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Klart!'])[1]/following::h1[1]"));
+		String text = element.getText();
+		System.out.println(text);
+		assertTrue(text.contains("Tack f√∂r din bokning!"));
+		
 		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
 		//
 		
@@ -225,8 +232,8 @@ public class MatchiSelenium {
 		webDriver.findElement(By.id("swish.telephoneNumber")).sendKeys(mobileNr);
 		webDriver.findElement(By.id("mainSubmit")).click();
 		delay(2000);
-		// H‰r failar Swish betalningen
-		// TO-DO hˆra pÂ fredag varfˆr det failar och skriva klart swish betalningen
+		// H√§r failar Swish betalningen
+		// TO-DO h√∂ra p√• fredag varf√∂r det failar och skriva klart swish betalningen
 		
 		
 		}
@@ -271,7 +278,7 @@ public class MatchiSelenium {
 		e = webDriver.findElement(By.xpath("//input[@placeholder='cvc / cid']"));
 		e.click();
 		e.sendKeys("738");
-		webDriver.findElement(By.xpath("//input[@value='Slutfˆr betalning']")).click();
+		webDriver.findElement(By.xpath("//input[@value='Slutf√∂r betalning']")).click();
 		
 		
 		delay(2000);
@@ -309,16 +316,65 @@ public class MatchiSelenium {
 	public boolean checkIfBooked() {
 		
 		
-		//Se ifall det finns en ikon pÂ schemaknappen l‰ngst upp pÂ sidan
+		//Se ifall det finns en ikon p√• schemaknappen l√§ngst upp p√• sidan
 		try {
 		webDriver.findElement(By.xpath("//span[@class='badge']"));
 		} catch (Exception e) {
 			return false;
 		}
 		return true;
+	
+	}
+	
+	public void loginWithMobileOrIpad(String username, String password) {
+		
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
+		webDriver.findElement(By.linkText("Logga in")).click();
+	    webDriver.findElement(By.id("username")).clear();
+	    webDriver.findElement(By.id("username")).sendKeys(username);
+	    webDriver.findElement(By.id("password")).clear();
+	    webDriver.findElement(By.id("password")).sendKeys(password);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='H√•ll mig inloggad'])[1]/following::button[1]")).click();
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Toggla navigation'])[1]/following::span[3]")).click();
+	}
+	
+	public void bookCourtMobileOrIpad(String search) {
+		
+	    webDriver.findElement(By.linkText("Anl√§ggningar")).click();
+	    webDriver.findElement(By.id("q")).click();
+	    webDriver.findElement(By.id("q")).clear();
+	    webDriver.findElement(By.id("q")).sendKeys(search);
+	    webDriver.findElement(By.id("submit")).click();
+	    delay(1000);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Pickleball'])[2]/following::a[2]")).click();
+	    webDriver.findElement(By.xpath("//ul[@class='list-inline no-margin']//li[1]//button[1]")).click();
+		delay(1500);
+		webDriver.findElement(By.xpath("//*/ul/li[2]/table/tbody/tr/td[6]")).click();
 		
 		
-
+		delay(1500);
+	}
+	
+	public void unbookMobileOrIpad() {
+		
+		delay(1500);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='MATCHi'])[1]/preceding::button[1]")).click();
+	    delay(1500);
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Visa alla meddelanden'])[1]/following::span[1]")).click();
+	    webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Visa alla meddelanden'])[1]/following::div[4]")).click();
+	    delay(1500);
+	    webDriver.findElement(By.linkText("Avboka")).click();
+	    webDriver.findElement(By.id("cancelCloseBtn")).click();
+		
+	}
+	
+	public boolean checkBookText(String checkText) {
+		WebElement element = webDriver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Klart!'])[1]/following::h1[1]"));
+		String text = element.getText();
+		System.out.println(text);
+		delay(2000);
+		webDriver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
+		return text.contains(checkText);
 	}
 
 	public void delay(int milliseconds) {
