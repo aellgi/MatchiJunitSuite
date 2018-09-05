@@ -15,7 +15,7 @@ class TestSuite {
 	MatchiSelenium s = new MatchiSelenium();
 
 
-	@Test
+	//@Test
 	void bookingHönöCourtCardCorrectCVC() {
 		
 		s.setSize("max");
@@ -28,7 +28,7 @@ class TestSuite {
 		s.quitSelenium();
 	}
 	
-	@Test
+	//@Test
 	void bookingHönöCourtCardWrongCVC() {
 		
 		s.setSize("max");
@@ -40,7 +40,7 @@ class TestSuite {
 		s.quitSelenium();
 	}
 	
-	@Test
+	//@Test
 	void bookingHönöCourtSwish() {
 		
 		s.setSize("max");
@@ -51,6 +51,19 @@ class TestSuite {
 		// Här failar testet...
 		// assertEquals(true, s.checkIfBooked());
 		// s.unbook();
+		s.quitSelenium();
+	}
+	
+	@Test
+	void bokingHönöMobile() {
+		
+		s.setSize("mobile");
+		s.loginMobile("mjukvarutestare1@mailinator.com", "mjukvarutestare");
+		//assertEquals(s.checkLogin().contains("Mjuk"), true);
+		s.bookMobileCourt("Hönö Tennissällskap");
+		s.paymentCard();
+		assertEquals(true, s.checkIfBooked());
+		s.unbook();
 		s.quitSelenium();
 	}
 
