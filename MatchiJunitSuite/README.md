@@ -1,6 +1,6 @@
 MATCHi Test suite
 ----------------------------------
-UI-Tester på web site: beta1.matchi.se
+UI-Tester på websidan: https://beta1.matchi.se
 
 Testerna är skrina i Java med jUNIT tester som kör Selenium för att testa sidans:
 
