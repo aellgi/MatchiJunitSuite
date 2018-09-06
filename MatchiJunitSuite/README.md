@@ -2,7 +2,7 @@ MATCHi Test suite
 ----------------------------------
 UI-Tester på web site: beta1.matchi.se
 
-Testerna är skrvna som jUNIT Tester som kör Selenium för att testa sidans:
+Testerna är skrina i Java med jUNIT tester som kör Selenium för att testa sidans:
 
 -Inloggning<br>
 -Söka upp och boka anläggning<br>
